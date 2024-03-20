@@ -1,0 +1,26 @@
+
+.brush-size {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aliceblue;
+    height: 150px;
+    width: 150px;
+    border-radius: 15%;
+    font-weight: 500;
+    border: 1px solid darkgray;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+.brush-demo {
+    align-self: center;
+    margin: auto;
+    border-radius: 50%;
+    transform-origin: center center;
+}
+.slider-lable-container {
+    margin-top: auto;
+    padding: 0px 10px;
+    
+}

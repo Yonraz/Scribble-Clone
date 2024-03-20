@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.canvas {
+    image-rendering: pixelated;
+    border: 1px solid lightblue;
+    width: auto;
+    height: auto;
+    background-color: white;
+    border-radius: 3%;
+    box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    cursor: none;
+}
+
+.cursor-dot {
+    border: 0.5px solid hsla(0, 0%, 0%, 0.1);
+}
+
+.cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 1px solid hsla(0, 0%, 36%, 0.5);
+}
+
+.cursor-outline,
+.cursor-dot {
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-eraser {
+    border: 1px solid hsla(0, 0%, 36%, 0.5);
+    border-radius: 15%;
+}
+
+
+.return-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 15px;
+    margin: 20px;
+    margin-left: auto;
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
+    border-radius: 10%;
+    transform: rotate(0deg);
+}
+
+.return-btn:hover {
+    transform: scale(1.02);
+    animation: rotate 0.5s ease-in-out;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
