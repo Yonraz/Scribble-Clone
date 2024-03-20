@@ -5,7 +5,7 @@
 # Main Technologies
   - Canvas API
   - React.js
-  - TypeScript
+  - Javascript
   - Socket.io
 
 # Main Features
