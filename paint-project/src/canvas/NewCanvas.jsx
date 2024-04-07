@@ -6,6 +6,7 @@ import Cursor from "../Components/cursor/Cursor";
 import { useBrush } from "../hooks/useBrush";
 import { brushTypesDict } from "../utility/brushTypesEnum";
 import { floodFill } from "../utility/floodfillHelpers";
+import useWindowSize from "../hooks/useWindowSize";
 
 const NewCanvas = (props) => {
   const canvasRef = useRef(null);
@@ -15,6 +16,7 @@ const NewCanvas = (props) => {
   const canvasStack = useRef([]);
   const { brushColor, brushSize, brushType } = useBrush();
   const [socketErase, setSocketErase] = useState(false);
+  const { canvasWidth, canvasHeight } = useWindowSize();
 
   let mouseMoveDebounceTimeout;
 
@@ -56,7 +58,7 @@ const NewCanvas = (props) => {
     );
   };
   const clearCanvas = () => {
-    ctx.current.clearRect(0, 0, props.canvasWidth, props.canvasHeight);
+    ctx.current.clearRect(0, 0, canvasWidth, canvasHeight);
     updateCanvasStack();
     props.onCanvasCleared();
   };
@@ -72,18 +74,19 @@ const NewCanvas = (props) => {
     socket.on("user-stopped-drawing", handleStopDraw);
     socket.on("user-mousemove", handleSocketMouseMove);
     socket.on("user-flood-fill", handleFloodFill);
+    socket.on("user-return", getLastCanvasState);
 
     updateCanvasStyle();
     updateCanvasStack();
 
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseup", handleUserStopDraw);
-    returnBtnElement.addEventListener("click", getLastCanvasState);
+    returnBtnElement.addEventListener("click", handleReturn);
     // unmount
     return () => {
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseup", handleUserStopDraw);
-      returnBtnElement.removeEventListener("click", getLastCanvasState);
+      returnBtnElement.removeEventListener("click", handleReturn);
       socket.off("set-clear-canvas", clearCanvas);
       socket.off("user-started-drawing", handleSocketDraw);
       socket.off("user-stopped-drawing", handleStopDraw);
@@ -248,6 +251,11 @@ const NewCanvas = (props) => {
     }
   };
 
+  const handleReturn = () => {
+    getLastCanvasState();
+    socket.emit("canvas-return");
+  };
+
   return (
     <>
       <div className="container">
@@ -259,8 +267,8 @@ const NewCanvas = (props) => {
           className="canvas"
           id="canvas"
           ref={canvasRef}
-          width={props.canvasWidth}
-          height={props.canvasHeight}
+          width={canvasWidth}
+          height={canvasHeight}
         />
         <button ref={returnBtn} className="return-btn">
           <i className="fa fa-undo"></i>

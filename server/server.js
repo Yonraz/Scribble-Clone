@@ -35,6 +35,9 @@ io.on("connection", (socket) => {
   socket.on("user-flood-fill", (data) => {
     socket.broadcast.emit("user-flood-fill", data);
   });
+  socket.on("canvas-return", () => {
+    socket.broadcast.emit("user-return");
+  });
 });
 app.get("/", (req, res) => {
   res.status(200).send();
