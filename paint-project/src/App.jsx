@@ -1,12 +1,12 @@
 import "./App.css";
-import Controls from "./controls/Controls";
+import Paint from "./features/Paint/Paint";
 import { BrushProvider } from "./state/BrushContext";
 
 function App() {
   return (
     <>
       <BrushProvider>
-        <Controls />
+        <Paint />
       </BrushProvider>
     </>
   );

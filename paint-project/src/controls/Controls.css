@@ -1,37 +1,44 @@
 .controls {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+}
+
+.brush-and-size-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px;
 }
 
 .clear-save-container {
-    align-items: center;
-    justify-content: center;
-    
+  align-items: center;
+  justify-content: center;
 }
 .color-size-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0px 20px;
-    padding: 20px;
-    height: 500px;
-    border-radius: 10%;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+  padding: 20px;
+  height: 500px;
+  border-radius: 10%;
+  justify-content: space-around;
+  align-items: center;
 }
 .btn {
-    margin: 20px;
-    padding: 0.5rem 1rem;
-    font-size: larger;
-    border-radius: 10%;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: transparent;
+  margin: 20px;
+  padding: 0.5rem 1rem;
+  font-size: larger;
+  border-radius: 10%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: transparent;
 }
 .btn:hover {
-    transform: scale(1.05);
-    background-color: #e6f8ff;
-    font-weight: 500;
+  transform: scale(1.05);
+  background-color: #e6f8ff;
+  font-weight: 500;
 }
 .brushes-section-container {
-    margin: 30px 20px;
+  margin: 30px 20px;
 }

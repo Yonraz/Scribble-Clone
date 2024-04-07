@@ -1,27 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import ColorPicker from "./ColorPicker";
 import "./Controls.css";
 import SizePicker from "./SizePicker";
-import NewCanvas from "../canvas/NewCanvas";
 import Brushes from "./Brushes";
-import { socket } from "../../socket";
 
-const Controls = () => {
-  const [clearCanvas, setClearCanvas] = useState(false);
-  const handleClear = () => {
-    setClearCanvas(true);
-    socket.emit("clear-canvas");
-  };
-
-  const handleCleared = () => {
-    setClearCanvas(false);
-  };
-
+const Controls = (props) => {
+  const { handleClear } = props;
   return (
-    <>
-      <div className="controls">
-        <NewCanvas clearCanvas={clearCanvas} onCanvasCleared={handleCleared} />
+    <div className="controls">
+      <div className="brush-and-size-container">
         <div className="brushes-section-container">
           <Brushes />
         </div>
@@ -36,7 +23,7 @@ const Controls = () => {
         </button>
         <button className="save btn">Save</button>
       </div>
-    </>
+    </div>
   );
 };
 

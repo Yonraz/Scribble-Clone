@@ -12,22 +12,12 @@ export const hexToRgb = (hex) => {
 };
 
 export const getEuclidianDistanceForColors = (startColor, newColor) => {
-  const startR = startColor.r / 1.0;
-  const startG = startColor.g / 1.0;
-  const startB = startColor.b / 1.0;
-  const startA = startColor.a / 1.0;
-
-  const newR = newColor.r / 1.0;
-  const newG = newColor.g / 1.0;
-  const newB = newColor.b / 1.0;
-  const newA = newColor.a / 1.0;
-
   if (isEqualColor(startColor, newColor)) return 0;
   const dist = Math.sqrt(
-    Math.pow(startR - newR, 2) +
-      Math.pow(startG - newG, 2) +
-      Math.pow(startB - newB, 2) +
-      Math.pow(startA - newA, 2)
+    Math.pow(startColor.r - newColor.r, 2) +
+      Math.pow(startColor.g - newColor.g, 2) +
+      Math.pow(startColor.b - newColor.b, 2) +
+      Math.pow(startColor.a - newColor.a, 2)
   );
   return dist;
 };
@@ -86,8 +76,8 @@ const getColorFromPixelPosition = (pixelPos, imageData) => {
 export const matchStartColor = (pixelPos, startColor, imageData, threshold) => {
   const newColor = getColorFromPixelPosition(pixelPos, imageData);
   const dist = getEuclidianDistanceForColors(startColor, newColor);
-  if (threshold === 255) return dist <= 128;
-  return dist < threshold - 5;
+  if (threshold === 510) return dist <= 255;
+  return dist < threshold - 70;
 };
 
 // if new color equals start color
