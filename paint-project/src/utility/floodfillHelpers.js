@@ -33,6 +33,9 @@ export const getEuclidianDistanceForColors = (startColor, newColor) => {
 };
 
 const isIndexOutOfRange = (x, y, width, height) => {
+  if (x < 0 || x >= width || y < 0 || y >= height) {
+    debugger;
+  }
   return x < 0 || x >= width || y < 0 || y >= height;
 };
 
@@ -99,7 +102,9 @@ export const floodFill = (ctx, originalX, originalY, fillColor) => {
   const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
   const pixelStack = [[originalX, originalY]];
   const pixelPosition = (x, y) => {
-    return (y * imageData.width + x) * 4;
+    const floorX = Math.floor(x);
+    const floorY = Math.floor(y);
+    return (floorY * imageData.width + floorX) * 4;
   };
 
   const colorPixel = (pixelPos, fillColor) => {
@@ -108,34 +113,38 @@ export const floodFill = (ctx, originalX, originalY, fillColor) => {
     imageData.data[pixelPos + 2] = fillColor.b;
     imageData.data[pixelPos + 3] = 255;
   };
+  const initialPixelPosition = pixelPosition(originalX, originalY);
   const startColor = {
-    r: imageData.data[pixelPosition(originalX, originalY)],
-    g: imageData.data[pixelPosition(originalX, originalY) + 1],
-    b: imageData.data[pixelPosition(originalX, originalY) + 2],
-    a: imageData.data[pixelPosition(originalX, originalY) + 3],
+    r: imageData.data[initialPixelPosition],
+    g: imageData.data[initialPixelPosition + 1],
+    b: imageData.data[initialPixelPosition + 2],
+    a: imageData.data[initialPixelPosition + 3],
   };
 
-  const initialEuclidianDist = getEuclidianDistanceForColors(startColor, fillColor);
+  const initialEuclidianDist = getEuclidianDistanceForColors(
+    startColor,
+    fillColor
+  );
 
   if (isEqualColor(startColor, fillColor)) return;
 
   while (pixelStack.length) {
     let [i, j] = pixelStack.pop();
-    let pixelPos = (j * imageData.width + i) * 4;
+    let pixelPos = pixelPosition(i, j);
     // check pixel in range
-    if (isIndexOutOfRange(i, j, ctx.canvas.width, ctx.canvas.height)) {
+    if (isIndexOutOfRange(i, j, imageData.width, imageData.height)) {
       continue;
     } else {
       // check pixel color matches start color
       if (
         !matchStartColor(pixelPos, startColor, imageData, initialEuclidianDist)
       ) {
-        // const pixelIJ = [i, j];
-        // if (
-        //   isSmoothedBorder(pixelIJ, startColor, imageData, initialEuclidianDist)
-        // ) {
-        //   colorPixel(pixelPos, fillColor);
-        // }
+        const pixelIJ = [Math.floor(i), Math.floor(j)];
+        if (
+          isSmoothedBorder(pixelIJ, startColor, imageData, initialEuclidianDist)
+        ) {
+          colorPixel(pixelPos, fillColor);
+        }
         continue;
       }
       colorPixel(pixelPos, fillColor);
