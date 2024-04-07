@@ -33,9 +33,6 @@ export const getEuclidianDistanceForColors = (startColor, newColor) => {
 };
 
 const isIndexOutOfRange = (x, y, width, height) => {
-  if (x < 0 || x >= width || y < 0 || y >= height) {
-    debugger;
-  }
   return x < 0 || x >= width || y < 0 || y >= height;
 };
 
@@ -59,7 +56,7 @@ export const isSmoothedBorder = (
     const pixelPosition = (pixelY * imageData.width + pixelX) * 4;
     const pixelColor = getColorFromPixelPosition(pixelPosition, imageData);
     const newDist = getEuclidianDistanceForColors(startColor, pixelColor);
-    if (newDist < initialEuclidianDist) return true;
+    if (pixelColor.a < 255 || newDist < initialEuclidianDist - 70) return true;
   }
   return false;
 };
