@@ -4,15 +4,26 @@
   
 ![ezgif-6-72fb8c0802](https://github.com/Yonraz/Scribble-Clone/assets/99009434/e8158042-7b5a-468d-b4b0-4017043346c6)
 
-# Main Technologies
+# Tech Stack
 
-  - Canvas API
-  - React.js
-  - Javascript
-  - Socket.io
+  - __Canvas API__ 
+  - __React.js__
+  - __JavaScript__
+  - __Socket.io__
 
 # Main Features
-  - Drawing, deleting and filling on the canvas workspace
-  - socket connection, users share the same canvas (work in progress)
-  - optimized fill algorithm (calculate color differences using euclidian distance to find borders)
+
+### Paint
+
+ - Draw | Erase | Fill
+ - Use Different Brush Colors and Sizes
+ - Return button
+ - Clear button
+ - Optimized fill algorithm
+ 
+### Multiple Users (work in progress)
+
+  - Socket connection
+  - Users share the same canvas
+  
     
