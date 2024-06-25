@@ -8,7 +8,7 @@ import { brushTypesDict } from "../utility/brushTypesEnum";
 import { floodFill } from "../utility/floodfillHelpers";
 import useWindowSize from "../hooks/useWindowSize";
 
-const NewCanvas = (props) => {
+const Canvas = (props) => {
   const canvasRef = useRef(null);
   const isDrawing = useRef(false);
   const ctx = useRef(null);
@@ -69,6 +69,9 @@ const NewCanvas = (props) => {
     ctx.current = canvas.getContext("2d", {
       willReadFrequently: true,
     });
+    ctx.current.fillStyle = "#ffffffff";
+    ctx.current.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.current.fillStyle = brushColor;
     socket.on("set-clear-canvas", clearCanvas);
     socket.on("user-started-drawing", handleSocketDraw);
     socket.on("user-stopped-drawing", handleStopDraw);
@@ -134,15 +137,15 @@ const NewCanvas = (props) => {
     const canvas = canvasRef.current;
     function handleUserDraw(e) {
       const pos = getMousePos(e);
-      socket.emit("start-draw", {
-        position: { clientX: e.clientX, clientY: e.clientY },
-        brush: { type: brushType, color: brushColor, size: brushSize },
-      });
       if (brushType === brushTypesDict.fill) {
         socket.emit("user-flood-fill", pos);
         handleFloodFill(pos);
         return;
       }
+      socket.emit("start-draw", {
+        position: { clientX: e.clientX, clientY: e.clientY },
+        brush: { type: brushType, color: brushColor, size: brushSize },
+      });
       handleMouseClickOnCanvas(pos);
       isDrawing.current = true;
     }
@@ -277,4 +280,4 @@ const NewCanvas = (props) => {
     </>
   );
 };
-export default NewCanvas;
+export default Canvas;

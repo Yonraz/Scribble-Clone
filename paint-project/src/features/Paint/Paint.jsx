@@ -1,5 +1,5 @@
 import Controls from "../../controls/Controls";
-import NewCanvas from "../../canvas/NewCanvas";
+import Canvas from "../../canvas/Canvas";
 import { useState } from "react";
 import { socket } from "../../../socket";
 import "./Paint.css";
@@ -18,7 +18,7 @@ export default function Paint() {
   return (
     <>
       <div className="paint-container">
-        <NewCanvas clearCanvas={clearCanvas} onCanvasCleared={handleCleared} />
+        <Canvas clearCanvas={clearCanvas} onCanvasCleared={handleCleared} />
         <Controls handleClear={handleClear} />
       </div>
     </>

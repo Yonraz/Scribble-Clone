@@ -1,5 +1,10 @@
-.color-picker {
-    font-weight: 500;
-    background-color: rgb(255, 255, 255, 0.75);
-    border-radius: 15%;
+.color-picker-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  background-color: rgb(255, 255, 255, 0.75);
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
