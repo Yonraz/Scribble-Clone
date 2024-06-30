@@ -4,7 +4,7 @@
   
 ![ezgif-6-72fb8c0802](https://github.com/Yonraz/Scribble-Clone/assets/99009434/e8158042-7b5a-468d-b4b0-4017043346c6)
 
-# Tech Stack
+# Technologies
 
   - __Canvas API__ 
   - __React.js__
